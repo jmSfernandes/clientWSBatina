@@ -57,10 +57,13 @@ window.onload = function () {
     professorRow = new Vue({
         el: '#professorRow',
         data: {
+            isAuthenticated: false,
+            accessToken:'',
             professorEmail: 'uctx@test.com',
             classId: '160202'
         },
         methods: {
+            verifyAuth:verifyAuth,
             findQuestionnaires: findQuestionnaires,
             findQuestionnairesByClass: findQuestionnairesByClass
         }
@@ -90,6 +93,14 @@ function reset() {
 function registerClick() {
     registerQuestionnaire();
 }
+
+
+function verifyAuth() {
+    let accessToken = professorRow.accessToken;
+    console.log('Verifying authorization for token: ' + accessToken)
+    sendMessage({id: 'verifyAuth', accessToken: accessToken});
+}
+
 
 function findQuestionnaires() {
     let email = professorRow.professorEmail;
@@ -131,6 +142,12 @@ ws.onmessage = function (message) {
     //console.info('Received message: ' + message.data);
 
     switch (parsedMessage.id) {
+        case 'verifyAuth':
+            let messageAuth = parsedMessage['message'];
+            if (parsedMessage['status'] === 200)
+                professorRow['isAuthenticated'] = true;
+            console.info(`User Authrization message received code: ${parsedMessage['status']}`);
+            break;
         case 'findQuestionnaires':
             let message = parsedMessage['message'];
             console.info(`Found  ${message['questionnaires'].length} questionnaire(s) for professor: ${message['professor']['email']}`);
@@ -204,6 +221,7 @@ function stop() {
 
 
 function sendMessage(message) {
+    //message['token']='49d85ed2e46077a4bcb079639e5e8eb0b358ab96';
     let jsonMessage = JSON.stringify(message);
     console.log('Sending message: ' + jsonMessage);
     ws.send(jsonMessage);

@@ -65,12 +65,22 @@
             <div class="col-12">
                 <div class="row m-3">
                     <div class="col-md-4 col-sm-6">
+                        <label for="professorEmail">Access Token:</label>
+                        <input type="text" id="accessToken" name="accessToken" v-model="accessToken">
+                    </div>
+                    <div class="col-md-2 col-sm-6">
+                        <a id="accessTokenBtn" href="#" class="btn btn-success"
+                           v-on:click="verifyAuth">Authenticate</a>
+                    </div>
+                </div>
+                <div class="row m-3">
+                    <div class="col-md-4 col-sm-6">
                         <label for="professorEmail">Professor Email:</label>
                         <input type="text" id="professorEmail" name="professorEmail" v-model="professorEmail">
                     </div>
                     <div class="col-md-2 col-sm-6">
-                        <a id="findQuestionnaires" href="#" class="btn btn-success"
-                           v-on:click="findQuestionnaires">Find Questionnaires</a>
+                        <button id="findQuestionnaires" href="#" class="btn btn-success"
+                                v-on:click="findQuestionnaires"  v-bind:disabled="!isAuthenticated">Find Questionnaires</button>
                     </div>
                 </div>
                 <div class="row m-3">
@@ -79,8 +89,8 @@
                         <input type="text" id="classId" name="classId" v-model="classId">
                     </div>
                     <div class="col-md-2 col-sm-6">
-                        <a id="findQuestionnairesByClass" href="#" class="btn btn-success"
-                           v-on:click="findQuestionnairesByClass">Find Questionnaires By Class</a>
+                        <button id="findQuestionnairesByClass" href="#" class="btn btn-success"
+                                v-on:click="findQuestionnairesByClass"  v-bind:disabled="!isAuthenticated">Find Questionnaires By Class</button>
                     </div>
                 </div>
             </div>
