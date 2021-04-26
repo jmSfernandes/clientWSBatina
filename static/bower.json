@@ -1,0 +1,25 @@
+{
+  "name": "batina-live-updater",
+  "description": "A web socket server to update clients on the changes to questionnaires in Batina ",
+  "authors": [
+    "José Marcelo Fernandes <jmslfernandes@gmail.com>"
+  ],
+  "main": "index.html",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "ALv2",
+  "homepage": "http://www.kurento.org/",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.0",
+    "demo-console": "1.5.1"
+  }
+}
